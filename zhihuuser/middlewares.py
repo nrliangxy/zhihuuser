@@ -126,7 +126,7 @@ class ProxyMiddleware(object):
         # request.meta['proxy'] = choice(ip_list)
         # request.meta['retry_times'] = 5
         
-        print(request.meta)
+        # print(request.meta)
         # print(request)
         # print()
     # def delete_ip(self, proxy):
