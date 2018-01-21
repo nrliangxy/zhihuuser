@@ -15,7 +15,11 @@ SPIDER_MODULES = ['zhihuuser.spiders']
 NEWSPIDER_MODULE = 'zhihuuser.spiders'
 MONGO_URI = 'localhost'
 MONGO_DATABASE = 'admin'
+SCHEDULER = "scrapy_redis.scheduler.Scheduler"
 
+# Ensure all spiders share same duplicates filter through redis.
+DUPEFILTER_CLASS = "scrapy_redis.dupefilter.RFPDupeFilter"
+REDIS_URL = 'redis://root@192.168.44.101:6379'
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 # USER_AGENT = 'zhihuuser (+http://www.yourdomain.com)'
 
@@ -55,9 +59,9 @@ DEFAULT_REQUEST_HEADERS = {
 
 # Enable or disable downloader middlewares
 # See https://doc.scrapy.org/en/latest/topics/downloader-middleware.html
-DOWNLOADER_MIDDLEWARES = {
-   'zhihuuser.middlewares.ProxyMiddleware': 543,
-}
+# DOWNLOADER_MIDDLEWARES = {
+#     'zhihuuser.middlewares.ProxyMiddleware': 543,
+# }
 
 # Enable or disable extensions
 # See https://doc.scrapy.org/en/latest/topics/extensions.html
@@ -68,7 +72,8 @@ DOWNLOADER_MIDDLEWARES = {
 # Configure item pipelines
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-   'zhihuuser.pipelines.MongoPipeline': 300,
+    'zhihuuser.pipelines.MongoPipeline': 300,
+    # 'scrapy_redis.pipelines.RedisPipeline': 302
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
